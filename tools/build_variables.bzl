@@ -40,6 +40,9 @@ GENERATED_CPP = [
     "autograd/generated/python_torch_functions_1.cpp",
     "autograd/generated/python_torch_functions_2.cpp",
     "autograd/generated/python_variable_methods.cpp",
+    "lazy/generated/LazyNativeFunctions.cpp",
+    "lazy/generated/RegisterAutogradLazy.cpp",
+    "lazy/generated/RegisterLazy.cpp",
 ]
 
 # NVFuser runtime library
@@ -80,6 +83,9 @@ def libtorch_generated_sources(gencode_pattern):
         "autograd/generated/TraceType_4.cpp",
         "autograd/generated/ADInplaceOrViewType_0.cpp",
         "autograd/generated/ADInplaceOrViewType_1.cpp",
+        "lazy/generated/LazyNativeFunctions.cpp",
+        "lazy/generated/RegisterAutogradLazy.cpp",
+        "lazy/generated/RegisterLazy.cpp",
     ]]
 
 # copied from https://github.com/pytorch/pytorch/blob/f99a693cd9ff7a9b5fdc71357dac66b8192786d3/aten/src/ATen/core/CMakeLists.txt
@@ -436,12 +442,21 @@ lazy_tensor_core_sources = [
     "torch/csrc/lazy/core/view_ops/view.cpp",
     "torch/csrc/lazy/ts_backend/config.cpp",
     "torch/csrc/lazy/ts_backend/ops/arithmetic_ir_ops.cpp",
+    "torch/csrc/lazy/ts_backend/ops/batch_norm_ops.cpp",
     "torch/csrc/lazy/ts_backend/ops/cast.cpp",
     "torch/csrc/lazy/ts_backend/ops/device_data.cpp",
     "torch/csrc/lazy/ts_backend/ops/expand.cpp",
     "torch/csrc/lazy/ts_backend/ops/generic.cpp",
+    "torch/csrc/lazy/ts_backend/ops/random_ops.cpp",
     "torch/csrc/lazy/ts_backend/ops/scalar.cpp",
+    "torch/csrc/lazy/ts_backend/ts_autograd_functions.cpp",
+    "torch/csrc/lazy/ts_backend/ts_backend_impl.cpp",
+    "torch/csrc/lazy/ts_backend/ts_lowering_context.cpp",
     "torch/csrc/lazy/ts_backend/ts_node.cpp",
+    "torch/csrc/lazy/ts_backend/ts_native_functions.cpp",
+    "torch/csrc/lazy/ts_backend/ts_node_lowering.cpp",
+    "torch/csrc/lazy/ts_backend/tensor_aten_ops.cpp",
+    "torch/csrc/lazy/ts_backend/ts_eager_fallback.cpp",
 ]
 
 lazy_tensor_core_python_sources = [

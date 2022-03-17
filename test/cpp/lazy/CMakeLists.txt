@@ -6,10 +6,11 @@ set(LAZY_TEST_SRCS
   ${LAZY_TEST_ROOT}/test_cache.cpp
   ${LAZY_TEST_ROOT}/test_ir.cpp
   ${LAZY_TEST_ROOT}/test_ir_util.cpp
+  ${LAZY_TEST_ROOT}/test_lazy_ops.cpp
+  ${LAZY_TEST_ROOT}/test_lazy_ops_util.cpp
   ${LAZY_TEST_ROOT}/test_misc.cpp
   ${LAZY_TEST_ROOT}/test_permutation_util.cpp
   ${LAZY_TEST_ROOT}/test_shape.cpp
-  ${LAZY_TEST_ROOT}/test_tensor_impl.cpp
   ${LAZY_TEST_ROOT}/test_util.cpp
 )
 

@@ -241,12 +241,21 @@ def gen_dispatcher_registrations(
         grouped_native_functions: Sequence[Union[NativeFunction, NativeFunctionsGroup]],
         backend_dispatch_key: DispatchKey,
         dispatch_key: DispatchKey,
-        selector: 'SelectiveBuilder') -> None:
+        selector: 'SelectiveBuilder',
+        internal_headers: Optional[List[str]] = None,
+        skip_external_nativefunc: bool = False) -> None:
+    internal_headers_str = ""
+    if internal_headers:
+        internal_headers_str = "\n".join(f'#include <{h}>' for h in internal_headers)
+    external_backend_headers_str = ""
+    if not skip_external_nativefunc:
+        external_backend_headers_str = f'#include "{output_dir}/{backend_dispatch_key}NativeFunctions.h"'
     backend_index = backend_indices[dispatch_key]
     fm.write_with_template(f'Register{dispatch_key}.cpp', 'RegisterDispatchKey.cpp', lambda: {
         'extra_cuda_headers': '',
-        'external_backend_headers': f'#include "{output_dir}/{backend_dispatch_key}NativeFunctions.h"',
+        'external_backend_headers': external_backend_headers_str,
         'ops_headers': '#include <ATen/Functions.h>',
+        'internal_headers': internal_headers_str,
         'DispatchKey': dispatch_key,
         'dispatch_namespace': dispatch_key.lower(),
         'dispatch_headers': dest.gen_registration_headers(backend_index, per_operator_headers=False, rocm=False),

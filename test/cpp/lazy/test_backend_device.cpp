@@ -74,7 +74,6 @@ TEST(BackendDeviceTest, FromAten) {
   auto device = c10::Device(c10::kCPU);
   EXPECT_THROW(atenDeviceToBackendDevice(device), c10::Error);
 
-  // TODO(alanwaketan): Update the following test once we have TorchScript backend upstreamed.
   device = c10::Device(c10::kLazy);
   EXPECT_THROW(atenDeviceToBackendDevice(device), c10::Error);
 }

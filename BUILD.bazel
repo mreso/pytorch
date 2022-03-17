@@ -155,6 +155,11 @@ libtorch_cpp_generated_sources = [
         "torch/csrc/autograd/generated/Functions.h",
         "torch/csrc/autograd/generated/Functions.cpp",
         "torch/csrc/autograd/generated/variable_factories.h",
+        "torch/csrc/lazy/generated/LazyIr.h",
+        "torch/csrc/lazy/generated/LazyNativeFunctions.h",
+        "torch/csrc/lazy/generated/LazyNativeFunctions.cpp",
+        "torch/csrc/lazy/generated/RegisterAutogradLazy.cpp",
+        "torch/csrc/lazy/generated/RegisterLazy.cpp",
 ]
 
 libtorch_python_generated_sources = [
@@ -180,9 +185,10 @@ genrule(
     name = "all_generated_code",
     srcs = [
         "aten/src/ATen/native/native_functions.yaml",
+        "aten/src/ATen/native/ts_native_functions.yaml",
     ],
     outs = libtorch_cpp_generated_sources + libtorch_python_generated_sources,
-    cmd = "$(location :generate_code) --install_dir `dirname $(location torch/csrc/autograd/generated/variable_factories.h)`/../.. --native-functions-path $(location aten/src/ATen/native/native_functions.yaml) --nn-path aten/src",
+    cmd = "$(location :generate_code) --install_dir `dirname $(location torch/csrc/autograd/generated/variable_factories.h)`/../.. --native-functions-path $(location aten/src/ATen/native/native_functions.yaml) --nn-path aten/src --gen_lazy_ts_backend",
     tools = [":generate_code"],
 )
 

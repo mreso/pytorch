@@ -46,6 +46,7 @@
 #include <ATen/core/op_registration/adaption.h>
 #include <torch/library.h>
 $extra_cuda_headers
+${internal_headers}
 $external_backend_headers
 $dispatch_headers
 $ops_headers

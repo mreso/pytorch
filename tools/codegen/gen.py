@@ -1423,6 +1423,7 @@ def gen_source_files(
             'extra_cuda_headers': extra_cuda_headers if is_cuda_dispatch_key(dispatch_key) else '',
             'external_backend_headers': '',
             'dispatch_headers': dest.gen_registration_headers(backend_index, per_operator_headers, rocm),
+            'internal_headers': '',
             'ops_headers': operator_headers(),
             'DispatchKey': dispatch_key,
             'dispatch_namespace': dispatch_key.lower(),
