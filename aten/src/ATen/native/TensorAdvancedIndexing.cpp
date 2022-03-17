@@ -1193,7 +1193,7 @@ static void scatter_reduce_exclude_input_helper(
   int64_t dim,
   const Tensor& index,
   SCATTER_GATHER_OP op) {
-  AT_DISPATCH_FLOATING_TYPES_AND2(
+  AT_DISPATCH_ALL_TYPES_AND2(
     at::ScalarType::Half, at::ScalarType::BFloat16,
     self.scalar_type(), "cuda_scatter_reduce_exclude_input_init", [&] {
     scalar_t init_val;

@@ -213,6 +213,11 @@ TEST(TestAtomicOps, TestAtomicAdd) {
 }
 
 TEST(TestAtomicOps, DISABLED_ON_WINDOWS(TestAtomicMul)) {
+  test_atomic_mul<uint8_t>();
+  test_atomic_mul<int8_t>();
+  test_atomic_mul<int16_t>();
+  test_atomic_mul<int32_t>();
+  test_atomic_mul<int64_t>();
   test_atomic_mul<at::BFloat16>();
   test_atomic_mul<at::Half>();
   test_atomic_mul<float>();
@@ -220,6 +225,11 @@ TEST(TestAtomicOps, DISABLED_ON_WINDOWS(TestAtomicMul)) {
 }
 
 TEST(TestAtomicOps, DISABLED_ON_WINDOWS(TestAtomicMax)) {
+  test_atomic_max<uint8_t>();
+  test_atomic_max<int8_t>();
+  test_atomic_max<int16_t>();
+  test_atomic_max<int32_t>();
+  test_atomic_max<int64_t>();
   test_atomic_max<at::BFloat16>();
   test_atomic_max<at::Half>();
   test_atomic_max<float>();
@@ -227,6 +237,11 @@ TEST(TestAtomicOps, DISABLED_ON_WINDOWS(TestAtomicMax)) {
 }
 
 TEST(TestAtomicOps, DISABLED_ON_WINDOWS(TestAtomicMin)) {
+  test_atomic_min<uint8_t>();
+  test_atomic_min<int8_t>();
+  test_atomic_min<int16_t>();
+  test_atomic_min<int32_t>();
+  test_atomic_min<int64_t>();
   test_atomic_min<at::BFloat16>();
   test_atomic_min<at::Half>();
   test_atomic_min<float>();

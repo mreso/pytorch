@@ -15686,7 +15686,7 @@ op_db: List[OpInfo] = [
     ),
     OpInfo(
         'scatter_reduce',
-        dtypes=floating_types_and(torch.float16, torch.bfloat16),
+        dtypes=all_types_and(torch.float16, torch.bfloat16),
         sample_inputs_func=sample_inputs_scatter_reduce,
         supports_out=False,
     ),
