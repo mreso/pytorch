@@ -25,10 +25,10 @@ add_custom_command(
   VERBATIM
 )
 
-add_library(torch_deploy_internal STATIC libtorch_deployinterpreter.o ${DEPLOY_DIR}/deploy.cpp ${DEPLOY_DIR}/loader.cpp ${DEPLOY_DIR}/path_environment.cpp ${DEPLOY_DIR}/elf_file.cpp)
-target_link_libraries(torch_deploy_internal PRIVATE crypt pthread dl util m z ffi lzma readline nsl ncursesw panelw) # for python builtins
-target_link_libraries(torch_deploy_internal PUBLIC  shm torch fmt::fmt-header-only protobuf::libprotobuf-lite)
-caffe2_interface_library(torch_deploy_internal torch_deploy)
+add_library(torch_deploy SHARED libtorch_deployinterpreter.o ${DEPLOY_DIR}/deploy.cpp ${DEPLOY_DIR}/loader.cpp ${DEPLOY_DIR}/path_environment.cpp ${DEPLOY_DIR}/elf_file.cpp)
+target_link_libraries(torch_deploy PRIVATE crypt pthread dl util m z ffi lzma readline nsl ncursesw panelw) # for python builtins
+target_link_libraries(torch_deploy PUBLIC  shm torch fmt::fmt-header-only protobuf::libprotobuf-lite)
+caffe2_interface_library(torch_deploy torch_deploy_library)
 
 set(INTERPRETER_TEST_SOURCES
   ${DEPLOY_DIR}/test_deploy.cpp
@@ -36,7 +36,7 @@ set(INTERPRETER_TEST_SOURCES
 add_executable(test_deploy ${INTERPRETER_TEST_SOURCES})
 target_compile_definitions(test_deploy PUBLIC TEST_CUSTOM_LIBRARY)
 target_include_directories(test_deploy PRIVATE ${PYTORCH_ROOT}/torch)
-target_link_libraries(test_deploy PUBLIC "-Wl,--no-as-needed" gtest dl torch_deploy)
+target_link_libraries(test_deploy PUBLIC "-Wl,--no-as-needed" gtest dl torch_deploy_library)
 
 add_library(test_deploy_lib SHARED test_deploy_lib.cpp)
 add_dependencies(test_deploy_lib cpython)
@@ -45,11 +45,11 @@ target_link_libraries(test_deploy_lib PRIVATE pybind::pybind11)
 
 add_executable(deploy_benchmark ${DEPLOY_DIR}/example/benchmark.cpp)
 target_include_directories(deploy_benchmark PRIVATE ${PYTORCH_ROOT}/torch)
-target_link_libraries(deploy_benchmark PUBLIC "-Wl,--no-as-needed" torch_deploy)
+target_link_libraries(deploy_benchmark PUBLIC "-Wl,--no-as-needed" torch_deploy_library)
 
 add_executable(interactive_embedded_interpreter ${DEPLOY_DIR}/interactive_embedded_interpreter.cpp)
 target_include_directories(interactive_embedded_interpreter PRIVATE ${PYTORCH_ROOT}/torch)
-target_link_libraries(interactive_embedded_interpreter PUBLIC "-Wl,--no-as-needed" torch_deploy)
+target_link_libraries(interactive_embedded_interpreter PUBLIC "-Wl,--no-as-needed" torch_deploy_library)
 
 if(INSTALL_TEST)
   install(TARGETS test_deploy DESTINATION bin)
