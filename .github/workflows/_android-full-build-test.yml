@@ -24,7 +24,8 @@ jobs:
     runs-on: [self-hosted, linux.2xlarge]
     steps:
       # [see note: pytorch repo ref]
-      - uses: pytorch/pytorch/.github/actions/checkout-pytorch@master
+      - name: Checkout PyTorch
+        uses: pytorch/pytorch/.github/actions/checkout-pytorch@master
 
       - name: Setup Linux
         uses: ./.github/actions/setup-linux
@@ -37,7 +38,8 @@ jobs:
         with:
           docker-image-name: ${{ inputs.docker-image-name }}
 
-      - uses: ./.github/actions/pull-docker-image
+      - name: Pull docker image
+        uses: ./.github/actions/pull-docker-image
         with:
           docker-image: ${{ steps.calculate-docker-image.outputs.docker-image }}
 
@@ -171,8 +173,10 @@ jobs:
           if-no-files-found: error
           path: build_android_artifacts/artifacts.tgz
 
-      - uses: ./.github/actions/chown-workspace
+      - name: Chown workspace
+        uses: ./.github/actions/chown-workspace
         if: always()
 
-      - uses: ./.github/actions/teardown-linux
+      - name: Teardown Linux
+        uses: ./.github/actions/teardown-linux
         if: always()
